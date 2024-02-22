@@ -1,0 +1,16 @@
+package com.ayshu.gct.spring.aop.model;
+
+import jakarta.persistence.Entity;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Employee {
+	private String firstName;
+	private String lastName;
+	private Long id;
+}

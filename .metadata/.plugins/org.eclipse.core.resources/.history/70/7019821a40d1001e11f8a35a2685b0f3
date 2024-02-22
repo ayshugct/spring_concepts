@@ -1,0 +1,13 @@
+package com.ayshu.gct.spring.aop.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmployeeService {
+
+	private final EmployeeRepository empRepository;
+
+    public EmployeeService(EmployeeRepository empRepository) {
+        this.empRepository = empRepository;
+    }
+}

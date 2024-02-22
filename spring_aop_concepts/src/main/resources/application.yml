@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/library?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/mydb?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: rootpwd
   data:
@@ -16,6 +16,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 logging:
   level:
-    root: INFO
-    org.springframework.web: ERROR
+#    root: DEBUG
+    org.springframework.web: INFO
     org.hibernate: ERROR
+    com.ayshu.gct.spring.aop: DEBUG

@@ -1,0 +1,8 @@
+package com.ayshu.gct.spring.aop.concept.exception;
+
+public class ErrorDetail {
+
+	private Date timestamp;
+	 private String message;
+	 private String details;
+}
