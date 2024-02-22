@@ -24,6 +24,7 @@ public class Employee {
 	private String lastName;
 	
 	private String email;
+	
 	private String phoneNumber;
 	private Date hireDate;
 	private Integer jobId;
