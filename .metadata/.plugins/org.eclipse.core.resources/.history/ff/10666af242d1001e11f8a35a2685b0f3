@@ -1,5 +1,0 @@
-package com.ayshu.gct.spring.aop.concept;
-
-public class LoggerAOP {
-
-}

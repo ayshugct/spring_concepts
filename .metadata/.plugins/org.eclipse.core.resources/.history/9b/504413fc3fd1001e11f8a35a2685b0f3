@@ -1,7 +1,0 @@
-package com.ayshu.gct.spring.aop.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public class EmployeeRepository implements JpaRepository<Employee, Long>{
-
-}
