@@ -1,0 +1,52 @@
+package com.ayshu.gct.spring.aop.concept.aspect;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class LoggingAspect {
+
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+	@Pointcut("execution(* com.ayshu.gct.spring.aop.concept.*.*.*(..))")
+	public void allMethodExec() {
+		
+	}
+
+	/*
+	 * @Before(value="allMethodExec()") public void beforeMethodLog(JoinPoint
+	 * joinPoint) { System.out.println("Before method " + joinPoint.getSignature() +
+	 * ": "); }
+	 */	
+	@Around(value="allMethodExec()")
+	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable{
+		if(log.isDebugEnabled()) {
+			log.debug("Enter {}.{} with arguments = {}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), joinPoint.getArgs());
+		}
+		
+		try {
+			Object result = joinPoint.proceed();
+			if(log.isDebugEnabled()) {
+				log.debug("Exit {} with arguments = {}", joinPoint.getSignature(), joinPoint.getArgs());
+			}
+			return result;
+		} catch(IllegalArgumentException e) {
+			log.error("Illegal Argument {} in {}.{}", joinPoint.getArgs(), joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
+			throw e;
+		}
+	}
+//	
+//	@After(value="allMethodExec()")
+//	public void afterMethodLog(JoinPoint joinPoint) {
+//		System.out.println("After method " + joinPoint.getSignature() + ": ");
+//	}
+}

@@ -1,0 +1,5 @@
+package com.ayshu.gct.spring.aop.controller;
+
+public class SpringAOPController {
+
+}

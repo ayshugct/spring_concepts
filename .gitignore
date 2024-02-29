@@ -1,0 +1,6 @@
+
+*.ini
+.metadata/.log
+*.index
+*.snap
+.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml

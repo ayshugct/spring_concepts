@@ -1,0 +1,27 @@
+package com.ayshu.gct.spring.aop.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ayshu.gct.spring.aop.service.EmployeeService;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+
+	EmployeeService empService;
+	
+	public EmployeeController(EmployeeService empService) {
+		this.empService = empService;
+	}
+	
+	@GetMapping("/getAll")
+	public ResponseEntity<String> getAllEmployees(){
+		return new ResponseEntity<String>("All employees are fetched.", HttpStatus.OK);
+	}
+	
+}

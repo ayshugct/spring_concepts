@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/library?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/mydb?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: rootpwd
   data:
@@ -14,8 +14,25 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${KEYCLOCK_HOST:localhost}:${KEYCLOCK_PORT:8080}/realms/${KEYCLOCK_REALM:local_realm}
+      client:
+        provider:
+          keyclock:
+            issuer-uri: http://${KEYCLOCK_HOST:localhost}:${KEYCLOCK_PORT:8080}/realms/${KEYCLOCK_REALM:local_realm}
+        registration:
+          keyclock:
+            authorization-grant-type: authorization_code
+            scope: [openid, profile, email]
+            client-id: local_client
 logging:
   level:
-    root: INFO
-    org.springframework.web: ERROR
+#    root: DEBUG
+    org.springframework.web: INFO
     org.hibernate: ERROR
+    com.ayshu.gct.spring.aop: DEBUG
+    
