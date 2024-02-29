@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/springaop")
-public class SpringAOPController {
+public class SpringHealthController {
 
 	@GetMapping("/healthCheck")
 	public ResponseEntity<String> getHealthCheckInfo(){
