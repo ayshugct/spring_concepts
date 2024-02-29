@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ayshu.gct.spring.aop.concept.constant.SecurityAuthorities;
 import com.ayshu.gct.spring.aop.concept.model.Employee;
+import com.ayshu.gct.spring.aop.concept.security.HasEndpointAuthorities;
 import com.ayshu.gct.spring.aop.concept.service.EmployeeService;
 
 @RestController
@@ -26,6 +28,7 @@ public class EmployeeController {
 		this.employeeService = empService;
 	}
 	
+	@HasEndpointAuthorities(securityAuthorities = {SecurityAuthorities.EMPLOYEE})
 	@GetMapping("/getAll")
 	public ResponseEntity<List<Employee>> getAllEmployees(){
 		List<Employee> empList = employeeService.findAll();
@@ -39,6 +42,13 @@ public class EmployeeController {
         return ResponseEntity.ok().body(employee);
     }
 
+	@GetMapping("/jobId/{id}")
+    public ResponseEntity < List<Employee> > findByJobId(@PathVariable("id") Integer jobId) throws Exception{
+        List<Employee> employeeList = employeeService.findByJobId(jobId);
+//        .orElseThrow(() -> new Exception("Job not found for this id :: " + employeeId));
+        return ResponseEntity.ok().body(employeeList);
+    }
+	
     @PostMapping("/create")
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeService.createEmployee(employee);

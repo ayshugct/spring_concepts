@@ -3,6 +3,7 @@ package com.ayshu.gct.spring.aop.concept.aspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,9 +19,10 @@ public class LoggingAspect {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Pointcut("within(com.ayshu.gct.spring.aop.concept.controller.*)"
-			+ " || within(com.ayshu.gct.spring.aop.concept.service.*)"
-			+ " || within(com.ayshu.gct.spring.aop.concept.repository.*)")
+	@Pointcut("within(com.ayshu.gct.spring.aop.concept.controller..*)"
+			+ " || within(com.ayshu.gct.spring.aop.concept.service..*)"
+			+ " || within(com.ayshu.gct.spring.aop.concept.repository..*)"
+			)
 	public void allMethodExec() {
 		
 	}
@@ -62,6 +64,17 @@ public class LoggingAspect {
 	public void afterMethodLog(JoinPoint joinPoint) {
 		if(log.isDebugEnabled()) {
 			log.debug("After method " + joinPoint.getSignature() + ": ");
+		}
+	}
+	
+	/*
+	 * The after returning advice takes priority over the after advice when
+	 * executing same methods
+	 */
+	@AfterReturning(value="allMethodExec()", returning = "result")
+	public void afterReturningMethod(JoinPoint joinPoint, Object result) {
+		if(log.isDebugEnabled()) {
+			log.debug("After returning method {} with results as {}", joinPoint.getSignature(), result);
 		}
 	}
 	

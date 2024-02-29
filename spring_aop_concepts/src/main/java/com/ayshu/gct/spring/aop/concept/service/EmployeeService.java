@@ -21,6 +21,10 @@ public class EmployeeService {
 		return employeeRepository.findAll();
 	}
 
+	public List<Employee> findByJobId(Integer jobId)  throws Exception {
+		return employeeRepository.findByJobId(jobId);
+	}
+
 	public Optional<Employee> getEmployeeById(Long employeeId) throws Exception {
 		return employeeRepository.findById(employeeId);
 	}
