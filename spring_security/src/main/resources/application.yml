@@ -1,0 +1,38 @@
+server:
+  port:
+    8083
+spring:
+  # Base path for the Rest APIs
+  data:
+    rest:
+      base-path: /security
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb
+    username: root
+    password: rootpwd
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/local_realm
+      client:
+        provider:
+          keyclock:
+            issuer-uri: http://localhost:8080/realms/local_realm
+        registration:
+          keyclock:
+            authorization-grant-type: authorization_code
+            scope: [openid, profile, email]
+            client-id: local_client
+
+logging:
+  level:
+    com.ayshu.gct.spring.security: DEBUG
+    org.hibernate: ERROR
+    org.springframework.web: INFO
